@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { Recipe } from "../recipes/recipe.model";
 import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import { Ingredient } from "../shared/ingredient.model";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,7 @@ export class RecipeService {
             new Ingredient('Meat', 1)
         ])
     ];
-    constructor(private slService: ShoppingListService) { }
+    constructor(private slService: ShoppingListService, private route: Router) { }
     getRecipe(index: number) {
         return this.recipes[index];
     }
@@ -27,5 +28,16 @@ export class RecipeService {
     }
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
         this.slService.addIngredients(ingredients);
+    }
+    addRecipe(recipe: Recipe) {
+        this.recipes.push(recipe);
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe) {
+        this.recipes[index] = newRecipe;
+        //this.route.navigate([`/recipe`]);
+    }
+    deleteRecipe(index: number) {
+        this.recipes.splice(index, 1);
     }
 }

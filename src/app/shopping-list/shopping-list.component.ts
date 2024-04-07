@@ -20,4 +20,7 @@ export class ShoppingListComponent implements OnInit {
   onIngredientAdd(ingredient) {
     this.ingredients.push(ingredient);
   }
+  onEditItem(index) {
+    this.shoppingListService.startedEditing.emit(index);
+  }
 }
